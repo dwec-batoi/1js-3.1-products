@@ -55,3 +55,10 @@ myStore.orderByName().forEach(prod=>console.log('- '+prod))
 
 console.log('LISTADO DE PRODUCTOS CON POCAS EXISTENCIAS')
 myStore.underStock(10).forEach(prod=>console.log('- '+prod))
+
+try {
+    var catEmpty = myStore.addCategory('Cat sin productos')
+    myStore.delCategory(catEmpty.id)
+} catch (err) {
+    console.error(err)
+}
