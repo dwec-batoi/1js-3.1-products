@@ -17,8 +17,8 @@ class Store {
 
     loadData () {
 
-        data.categories.forEach(category => this.addCategory(category));
-        data.products.forEach(product => this.addProduct(product));
+        data.categories.forEach(category => this.categories.push(category));
+        data.products.forEach(product => this.products.push(product));
 
     }
 
