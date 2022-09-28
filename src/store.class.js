@@ -1,7 +1,6 @@
 const category = require('./category.class');
-const Category = require('./category.class');
 const product = require('./product.class');
-const Product = require('./product.class');
+const data = require('./datosIni.json');
 
 class store {
 
@@ -11,7 +10,11 @@ class store {
         this.name = name
         this.products = []
         this.categories = []
+    }
 
+    loadData() {
+        this.products = data.products
+        this.categories = data.categories
     }
 
     getCategoryById(id) {
@@ -21,7 +24,6 @@ class store {
             throw 'No existe una categoria con id: ' + id 
         }
         return cat
-
     }
 
     getCategoryByName(name) {
