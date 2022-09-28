@@ -1,5 +1,5 @@
 {
-  "name": "products",
+  "name": "prova",
   "version": "1.0.0",
   "description": "Aplicación de productos de un almacén",
   "main": "index.js",
@@ -8,8 +8,23 @@
   },
   "author": "Juan Segura",
   "license": "ISC",
+  "dependencies": {
+    "util": "^0.12.4"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RubenCatalan1/1js-3.1-products.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RubenCatalan1/1js-3.1-products/issues"
+  },
+  "homepage": "https://github.com/RubenCatalan1/1js-3.1-products#readme",
   "devDependencies": {
-    "webpack": "^5.54.0",
-    "webpack-cli": "^4.8.0"
+    "jest-worker": "^27.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }
