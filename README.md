@@ -124,27 +124,27 @@ Lo correcto es no tener todo el código en un único fichero javascript sino cad
 
 En el _index.html_ habría que enlazar los 3 ficheros en el orden correcto (productos, almacén y index para que desde _index.js_ se pueda llamar a métodos de _Store_ y desde _store.js_ a métodos de _Product_). Como esto ya empieza a ser incómodo vamos a hacer uso de **_webpack_** para que empaquete todos nuestros ficheros javascript en un único fichero que se llamará _./dist/main.js_ y que será el único que enlazaremos en el _index.html_. Consulta [cómo usar webpack](../12-tests.html#usando-webpack) para hacerlo. 
 
-Lo que habría que hacer (**NO lo hagas** porque ya tienes credo el _package.json_) es:
-- `npm init`: inicializamos nuestro proyecto lo que creará el fichero **package.json**. Recuerda escribir **jest** cuando nos pregunte por los tests
+Fijaos que en el código que os paso para que la clase _Store_ pueda usar los métodos de _Product_ debe importar el fichero con dicha clase mediante una instrucción _require_ (`const Product = require('./Product.class'). Pero para que la clase sea exportable debemos añadir en su fichero la instrucción `module.exports = Product`. Por tanto, para poder usar código de un fichero en otro debemos hacer:
+- añadir al final del fichero con el código a usar una sentencia **`module.exports`**, por ejemplo en _product.class.js_ ponemos `module.exports = Product`. Esto hace accesible la clase a cualquier fichero que importe _product.class.js_. Es lo mismo que hacíamos en los ficheros _functions.js_ de los ejercicios anteriores para que los tests pudieran acceder a sus funciones
+- añadir al principio del fichero que lo quiere usar una sentencia **`require()`** para importar el fichero, por ejemplo en _store.class.js_ el añadimos al principio `const Product = require('./product.class')`. Esto crea una variable _Product_ que es la clase exportada en el otro fichero
+
+Lo mismo tendréis que hacer para que_store.js_ pueda usar la clase _Category_ y para que _index.js_ pueda llamar a métodos de _Store_ (exportar la clase en _store.class_ e importar ese fichero en _index_).
+
+Ahora, para empaquetar todos esos ficheros con _webpack_ lo que habría que hacer (**NO lo hagas** porque ya tienes credo el _package.json_) es:
+- `npm init`: inicializamos nuestro proyecto, lo que creará el fichero **package.json**. Recuerda escribir **jest** cuando nos pregunte por los tests
 - `npm i -D webpack webpack-cli`: instalamos _webpack_ como dependencia de desarrollo (en la versión de producción no estará)
 
 En este ejercicio ya tienes el _package.json_ creado y configurado por lo que ya tienes lo anterior hecho.
 
 Lo siguiente es hacer que se instalen las dependencias (`npm install`). Una vez hecho:
-- para pasar los test ejecuta `npm run test`
-- cuando quieras probarlo en el navegador ejecuta `npx webpack --mode=development`: esto crea el fichero **dist/main.js** (que es el que está enlazado en el _index.html_). En él webpack empaqueta el código de todos nuestros ficheros javascript. Deberás ejecutarlo cada vez que hagas cambios en tu código y quieras probarlos en el navegador. Si no quieres tener que ejecutar esto cada vez que modificas un fichero puedes lanzarlo con la opción _--watch_ que deja la consola abierta y ejecuta el comando automáticamente cuando guardamos cualquiera de los ficheros del proyecto:
-```bash
-npx webpack --mode=development --watch
-```
-
-Fijaos en el código que os paso. Para que la clase _Store_ pueda usar los métodos de _Product_ debemos hacer:
-- añadir al final de _product.class.js_ el código `module.exports = Product`. Esto hace accesible la clase a cualquier fichero que importe _product.class.js_. Es lo mismo que hacíamos en los ficheros _functions.js_ de los ejercicios anteriores para que los tests pudieran acceder a sus funciones
-- añadir al principio de _store.class.js_ el código `const Product = require('./product.class')`. Crea una variable _Product_ que es la clase exportada en el otro fichero
-
-Lo mismo tendréis que hacer para que_store.js_ pueda usar la clase _Category_ y para que _index.js_ pueda llamar a métodos de _Store_ (exportar la clase en _store.class_ e importar ese fichero en _index_).
+- para pasar los test ejecuta **`npm run test`**
+- cuando quieras probarlo en el navegador ejecuta **`npx webpack --mode=development`**: esto crea el fichero **dist/main.js** (que es el que está enlazado en el _index.html_). En él webpack empaqueta el código de todos nuestros ficheros javascript. Deberás ejecutarlo cada vez que hagas cambios en tu código y quieras probarlos en el navegador. Si no quieres tener que ejecutar esto cada vez que modificas un fichero puedes lanzarlo con la opción _--watch_ que deja la consola abierta y ejecuta el comando automáticamente cuando guardamos cualquiera de los ficheros del proyecto:
+  ```bash
+  npx webpack --mode=development --watch
+  ```
 
 ### Qué hace _webpack_
-Es un _module bundler_, es decir, un empaquetador de código. Toma el fichero que le indiquemos como fichero principal (por defecto el _./src/index.js_), lo junta con todas sus dependencias (sus _require_ y los de sus dependencias) y los transpila a un único fichero (per defecto _./dist/main.js_). Además minimiza y optimiza dicho código al generarlo.
+Es un _module bundler_, es decir, un empaquetador de código. Toma el fichero que le indiquemos como fichero principal (por defecto el _./src/index.js_), lo junta con todas sus dependencias (sus _require_ y los de sus dependencias) y los transpila a un único fichero (per defecto _./dist/main.js_) que es el que se enlaza en el _index.html_. Además minimiza y optimiza dicho código al generarlo.
 
 Cuando usamos _webpack_ le tenemos que indicar que tipo de código de salida queremos:
 - **_development_**: webpack permite "seguir" la ejecución del código desde la consola ya que "mapea" el código generado al original de forma que en la consola vemos como si se ejecutara nuestro código (los distintos ficheros) en vez del código generado por _webpack_ que es el que realmente se está ejecutando
