@@ -132,13 +132,23 @@ En este ejercicio ya tienes el _package.json_ creado y configurado por lo que ya
 
 Lo siguiente es hacer que se instalen las dependencias (`npm install`). Una vez hecho:
 - para pasar los test ejecuta `npm run test`
-- cuando quieras probarlo en el navegador ejecuta `npx webpack --mode=development`: esto crea el fichero **dist/main.js** (que es el que está enlazado en el _index.html_). En él webpack empaqueta el código de todos nuestros ficheros javascript. Deberás ejecutarlo cada vez que hagas cambios en tu código y quieras probarlos en el navegador.
+- cuando quieras probarlo en el navegador ejecuta `npx webpack --mode=development`: esto crea el fichero **dist/main.js** (que es el que está enlazado en el _index.html_). En él webpack empaqueta el código de todos nuestros ficheros javascript. Deberás ejecutarlo cada vez que hagas cambios en tu código y quieras probarlos en el navegador. Si no quieres tener que ejecutar esto cada vez que modificas un fichero puedes lanzarlo con la opción _--watch_ que deja la consola abierta y ejecuta el comando automáticamente cuando guardamos cualquiera de los ficheros del proyecto:
+```bash
+npx webpack --mode=development --watch
+```
 
 Fijaos en el código que os paso. Para que la clase _Store_ pueda usar los métodos de _Product_ debemos hacer:
 - añadir al final de _product.class.js_ el código `module.exports = Product`. Esto hace accesible la clase a cualquier fichero que importe _product.class.js_. Es lo mismo que hacíamos en los ficheros _functions.js_ de los ejercicios anteriores para que los tests pudieran acceder a sus funciones
 - añadir al principio de _store.class.js_ el código `const Product = require('./product.class')`. Crea una variable _Product_ que es la clase exportada en el otro fichero
 
 Lo mismo tendréis que hacer para que_store.js_ pueda usar la clase _Category_ y para que _index.js_ pueda llamar a métodos de _Store_ (exportar la clase en _store.class_ e importar ese fichero en _index_).
+
+### Qué hace _webpack_
+Es un _module bundler_, es decir, un empaquetador de código. Toma el fichero que le indiquemos como fichero principal (por defecto el _./src/index.js_), lo junta con todas sus dependencias (sus _require_ y los de sus dependencias) y los transpila a un único fichero (per defecto _./dist/main.js_). Además minimiza y optimiza dicho código al generarlo.
+
+Cuando usamos _webpack_ le tenemos que indicar que tipo de código de salida queremos:
+- **_development_**: webpack permite "seguir" la ejecución del código desde la consola ya que "mapea" el código generado al original de forma que en la consola vemos como si se ejecutara nuestro código (los distintos ficheros) en vez del código generado por _webpack_ que es el que realmente se está ejecutando
+- **_production_**: minimiza y optimiza el código para producción y ya no es posible desde la consola acceder al código original. Es lo que haremos para generar el código que subiremos al servidor de producción (NUNCA subimos el código de desarrollo).
 
 ## Probar el código
 En la carpeta _test_ ya tienes hechos varios test que puedes pasar para comprobar tu código. Recuerda que simplemente debes hacer:
