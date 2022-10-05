@@ -9,7 +9,7 @@ class Store {
     constructor (id, name) {
 
         this.id = id;
-        this.name = name,
+        this.name = name;
         this.products = [];
         this.categories = [];
 
@@ -17,14 +17,14 @@ class Store {
 
     loadData () {
 
-        data.categories.forEach(category => this.categories.push(category));
-        data.products.forEach(product => this.products.push(product));
+        data.categories.forEach(category => this.categories.push(new Category(category.id, category.name, category.description)));
+        data.products.forEach(product => this.products.push(new Product(product.id, product.name, product.category, product.price, product.units)));
 
     }
 
     getCategoryById (id) {
 
-        let category =  this.categories.find(category => category.id == id);
+        let category =  this.categories.find(category => category.id === parseInt(id));
         if(!category) {
             throw "No se encuentra ninguna categoría con id " + id;
         }
@@ -45,7 +45,7 @@ class Store {
 
     getProductById (id) {
 
-        let product =  this.products.find(product => product.id === id);
+        let product =  this.products.find(product => product.id === parseInt(id));
         if(!product) {
             throw "No se encuentra ningun producto con id " + id;
         }
@@ -54,7 +54,7 @@ class Store {
 
     getProductsByCategory (id) {
 
-        let productList = this.products.filter(product => product.category === id);
+        let productList = this.products.filter(product => product.category === parseInt(id));
         return productList;
     }
 
@@ -96,13 +96,12 @@ class Store {
             throw "Debes añadir un precio válido";
         }
         if(object.units) {
-            if(!Number.isInteger(object.units) || object.units < 0) {
+            if(object.units < 0 || !Number.isInteger(Number(object.units))) {
                 throw "El atributo units debe ser un número entero positivo";
             } 
         }
-
-        
-        this.getCategoryById(object.category);
+       
+        this.getCategoryById(Number(object.category));
         let nextId = this.nextProductId();
         
         let newProduct = new Product(nextId, object.name, object.category, object.price, object.units);
@@ -126,9 +125,8 @@ class Store {
         if(this.getProductsByCategory(id).length > 0) {
             throw "La categoria con id " + id + " tiene productos asociados";
         }
-        let categoryIndex = this.categories.findIndex(category => category.id === id);
-        this.categories.splice(categoryIndex, 1);
-        return category;
+        let categoryIndex = this.categories.findIndex(category => category.id === parseInt(id));
+        return this.categories.splice(categoryIndex, 1)[0];
     }
     
 
@@ -138,15 +136,14 @@ class Store {
         if(product.units > 0) {
             throw "Debes seleccionar un producto con stock 0. Stock actual: " + product.units;
         }
-        let productIndex = this.products.findIndex(product => product.id === id);
-        this.products.splice(productIndex, 1);
-        return product;
+        let productIndex = this.products.findIndex(product => product.id === parseInt(id));
+        return this.products.splice(productIndex, 1)[0];
     
     }
 
     totalImport () {
 
-        return this.products.reduce((total, product) => total += product.totalImport(), 0);
+        return this.products.reduce((total, product) => total += product.productImport(), 0);
 
     }
 
@@ -171,19 +168,6 @@ class Store {
         let productos = this.products.map(product => '- ' + product);
         return  cabecera + productos;
     }
-
-    
-
-
-
-       
-
-
-
-
-
-
-
 
 
 }
