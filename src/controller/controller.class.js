@@ -6,8 +6,10 @@ const View = require("../view/view.class")
 class Controller {
 
     constructor () {
+
         this.store = new Store(1, 'Almacen ACME');
         this.view = new View();
+        
     }
 
     init() {
@@ -27,6 +29,7 @@ class Controller {
             this.view.setTotalImport(this.store.totalImport());
         } catch (err) {
             this.view.renderMessage(err);
+
         }
         
     }
@@ -43,23 +46,26 @@ class Controller {
     }
 
     deleteProductFromStore(productId) {
+
         try {
             const prodDel = this.store.delProduct(productId);
             this.view.removeProductFromTable(prodDel);
         } catch (err) {
             this.view.renderMessage(err);
         }
+
     }
 
     deleteCategoryFromStore(categoryId) {
+
         try {
             const catDel = this.store.delCategory(categoryId);
             this.view.removeCategoryFromTable(catDel);
         } catch (err) {
             this.view.renderMessage(err);
         }
-    }
 
+    }
 
 }
 

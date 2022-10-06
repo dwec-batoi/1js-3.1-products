@@ -26,6 +26,8 @@ class View {
         errUI.innerHTML = err + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.parentElement.remove()"></button>';      
         const parentErrUI = document.getElementById('messages'); 
         parentErrUI.appendChild(errUI);
+
+        setTimeout(() => errUI.remove(), 5000);
         
     }
 
@@ -53,6 +55,7 @@ class View {
         let $id = category.id + "-id-cat";
         document.getElementById($id).remove();
     }
+
 
 }
 
