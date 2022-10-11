@@ -3,8 +3,18 @@
 class View {
 
     renderProduct(product) {
+
         const productUI = document.createElement('tr');
         productUI.id = product.id + "-id-prod";
+
+        const deleteButtonUI = document.createElement('button');
+        deleteButtonUI.id = productUI.id + "-del";
+        deleteButtonUI.innerHTML = "Eliminar";
+
+        const editButtonUI = document.createElement('button');
+        editButtonUI.id = productUI.id + "-edit";
+        editButtonUI.innerHTML = "Editar";
+        
         productUI.innerHTML = `
         <td>${product.id}</td>
         <td>${product.name}</td>
@@ -12,10 +22,14 @@ class View {
         <td>${product.units}</td>
         <td>${Number(product.price).toFixed(2)} €/u</td>
         <td>${Number(product.productImport()).toFixed(2)} €</td>
-        <td></td>
+        <td class="action-prod-buton"></td>
         `
         const tbodyUI = document.querySelector('#almacen tbody');
         tbodyUI.appendChild(productUI);
+
+        const actionColumnUI = productUI.lastElementChild;
+        actionColumnUI.appendChild(deleteButtonUI);
+        actionColumnUI.appendChild(editButtonUI);
     }
 
     renderMessage(err) {
@@ -54,6 +68,28 @@ class View {
     removeCategoryFromTable (category) {
         let $id = category.id + "-id-cat";
         document.getElementById($id).remove();
+    }
+
+    fillProductTable (product) {
+
+        document.getElementById('newprod-id').value = product.id;
+        document.getElementById('newprod-name').value = product.name;
+        document.getElementById('newprod-price').value  = product.price;
+        document.getElementById('newprod-cat').value = product.category;
+        document.getElementById('newprod-units').value = product.units;
+        document.getElementById('quest-prod-button').innerHTML = "Editar";
+
+    }
+
+    cleanProductTable (product) {
+
+        document.getElementById('newprod-id').value = "";
+        document.getElementById('newprod-name').value = "";
+        document.getElementById('newprod-price').value  = "";
+        document.getElementById('newprod-cat').value = "";
+        document.getElementById('newprod-units').value = "";
+        document.getElementById('quest-prod-button').innerHTML = "Añadir";
+
     }
 
 

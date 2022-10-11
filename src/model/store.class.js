@@ -102,6 +102,7 @@ class Store {
         }
        
         this.getCategoryById(Number(object.category));
+        
         let nextId = this.nextProductId();
         
         let newProduct = new Product(nextId, object.name, object.category, object.price, object.units);
@@ -139,6 +140,18 @@ class Store {
         let productIndex = this.products.findIndex(product => product.id === parseInt(id));
         return this.products.splice(productIndex, 1)[0];
     
+    }
+
+    editProduct (object) {
+        
+        let product = this.getProductById(object.id);
+        product.name = object.name;
+        product.price = object.price;
+        product.units = object.units;
+        product.category = object.category;
+
+        return product;
+
     }
 
     totalImport () {

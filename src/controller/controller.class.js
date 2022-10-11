@@ -19,13 +19,42 @@ class Controller {
         this.store.categories.forEach(category => this.view.setCategoryList(category));
         this.view.setTotalImport(this.store.totalImport());
 
+        const ButomsUI = document.getElementsByClassName('action-prod-buton');
+        Array.from(ButomsUI).forEach(button => button.firstElementChild.addEventListener('click', ()=> {
+            const id = button.firstElementChild.id.split("-")[0];
+            this.deleteProductFromStore(id);
+        }))
+
+        Array.from(ButomsUI).forEach(button => button.lastElementChild.addEventListener('click', ()=> {
+            const id = button.lastElementChild.id.split("-")[0];
+            this.editProductFromStore(id);
+        }))
+
     }
 
     addProductToStore(payload) {
 
         try {
-            const newProd = this.store.addProduct(payload);
+            let newProd;
+            if(payload.id) {
+                newProd = this.store.editProduct(payload);
+                this.view.removeProductFromTable(newProd);
+                this.view.cleanProductTable();
+            } else {
+                newProd = this.store.addProduct(payload);
+            }
             this.view.renderProduct(newProd);
+           
+            const delButton = document.getElementById(newProd.id + "-id-prod-del"); 
+            delButton.addEventListener('click', ()=> {
+                this.deleteProductFromStore(newProd.id);
+            });
+
+            const editButton = document.getElementById(newProd.id + "-id-prod-edit"); 
+            editButton.addEventListener('click', ()=> {
+                this.editProductFromStore(newProd.id);
+            });
+           
             this.view.setTotalImport(this.store.totalImport());
         } catch (err) {
             this.view.renderMessage(err);
@@ -64,6 +93,13 @@ class Controller {
         } catch (err) {
             this.view.renderMessage(err);
         }
+
+    }
+
+    editProductFromStore(id) {
+        const product = this.store.getProductById(id);
+        this.view.fillProductTable(product);
+
 
     }
 
