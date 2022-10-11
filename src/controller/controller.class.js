@@ -19,16 +19,24 @@ class Controller {
         this.store.categories.forEach(category => this.view.setCategoryList(category));
         this.view.setTotalImport(this.store.totalImport());
 
+
+        this.store.products.forEach(product => () => {
+            this.addListenerToEditButom(product.id);
+            this.addListenerToDeleteButom(product.id);
+        });
+        /*
         const ButomsUI = document.getElementsByClassName('action-prod-buton');
-        Array.from(ButomsUI).forEach(button => button.firstElementChild.addEventListener('click', ()=> {
+        Array.from(ButomsUI).forEach(button => button.lastElementChild.addEventListener('click', ()=> {
             const id = button.firstElementChild.id.split("-")[0];
             this.deleteProductFromStore(id);
         }))
 
-        Array.from(ButomsUI).forEach(button => button.lastElementChild.addEventListener('click', ()=> {
+        Array.from(ButomsUI).forEach(button => button.firstElementChild.addEventListener('click', ()=> {
             const id = button.lastElementChild.id.split("-")[0];
             this.editProductFromStore(id);
         }))
+        */
+
 
     }
 
@@ -45,15 +53,10 @@ class Controller {
             }
             this.view.renderProduct(newProd);
            
-            const delButton = document.getElementById(newProd.id + "-id-prod-del"); 
-            delButton.addEventListener('click', ()=> {
-                this.deleteProductFromStore(newProd.id);
-            });
-
-            const editButton = document.getElementById(newProd.id + "-id-prod-edit"); 
-            editButton.addEventListener('click', ()=> {
-                this.editProductFromStore(newProd.id);
-            });
+            
+            this.addListenerToDeleteButom(newProd.id);
+            this.addListenerToEditButom (newProd.id);
+            
            
             this.view.setTotalImport(this.store.totalImport());
         } catch (err) {
@@ -61,6 +64,20 @@ class Controller {
 
         }
         
+    }
+
+    addListenerToDeleteButom (id) {
+        const delButton = document.getElementById(id + "-id-prod-del"); 
+        delButton.addEventListener('click', ()=> {
+            this.deleteProductFromStore(id);
+        });
+    }
+
+    addListenerToEditButom (id) {
+        const editButton = document.getElementById(id + "-id-prod-edit"); 
+        editButton.addEventListener('click', ()=> {
+            this.editProductFromStore(id);
+        });
     }
 
     addCategoryToStore(payload) {
@@ -97,9 +114,9 @@ class Controller {
     }
 
     editProductFromStore(id) {
+
         const product = this.store.getProductById(id);
         this.view.fillProductTable(product);
-
 
     }
 

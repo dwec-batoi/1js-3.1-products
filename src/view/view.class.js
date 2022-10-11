@@ -9,12 +9,12 @@ class View {
 
         const deleteButtonUI = document.createElement('button');
         deleteButtonUI.id = productUI.id + "-del";
-        deleteButtonUI.innerHTML = "Eliminar";
+        deleteButtonUI.innerHTML = "<span class='material-icons'>delete</span>";
 
         const editButtonUI = document.createElement('button');
         editButtonUI.id = productUI.id + "-edit";
-        editButtonUI.innerHTML = "Editar";
-        
+        editButtonUI.innerHTML = "<span class='material-icons'>edit</span>";
+
         productUI.innerHTML = `
         <td>${product.id}</td>
         <td>${product.name}</td>
@@ -28,8 +28,9 @@ class View {
         tbodyUI.appendChild(productUI);
 
         const actionColumnUI = productUI.lastElementChild;
-        actionColumnUI.appendChild(deleteButtonUI);
+        
         actionColumnUI.appendChild(editButtonUI);
+        actionColumnUI.appendChild(deleteButtonUI);
     }
 
     renderMessage(err) {
@@ -78,6 +79,7 @@ class View {
         document.getElementById('newprod-cat').value = product.category;
         document.getElementById('newprod-units').value = product.units;
         document.getElementById('quest-prod-button').innerHTML = "Editar";
+        document.getElementById('prod-form-tittle').innerHTML = "Editar producto";
 
     }
 
@@ -89,6 +91,7 @@ class View {
         document.getElementById('newprod-cat').value = "";
         document.getElementById('newprod-units').value = "";
         document.getElementById('quest-prod-button').innerHTML = "Añadir";
+        document.getElementById('prod-form-tittle').innerHTML = "Añadir producto";
 
     }
 

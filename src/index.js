@@ -67,22 +67,6 @@ window.addEventListener('load', () => {
     myController.deleteCategoryFromStore(document.getElementById('delcat-id').value)      
   })
 
-  
-/*
-  const delButomsUI = document.getElementsByClassName('delete-prod-buton');
-  Array.from(delButomsUI).forEach(button => button.firstElementChild.addEventListener('click', ()=> {
-    const id = button.firstElementChild.id.split("-")[0];
-    myController.deleteProductFromStore(id);
-  }))
 
-*/
 })
 
-/*window.addEventListener('change', () => {
-  const delButomsUI = document.getElementsByClassName('delete-prod-buton');
-  Array.from(delButomsUI).forEach(button => button.firstElementChild.addEventListener('click', ()=> {
-    const id = button.firstElementChild.id.split("-")[0];
-    myController.deleteProductFromStore(id);
-  }))
-})
-*/

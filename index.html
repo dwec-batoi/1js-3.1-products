@@ -8,7 +8,7 @@
 	<meta name="keywords" content="JavaScript, Ejercicio, HTML5, DAW">
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -69,7 +69,7 @@
 					<div class="col-sm-6 col-md-4 col-lg-4">
 						<form id="new-prod">
 							<fieldset>
-								<legend class="bg-dark text-white text-center">Añadir producto</legend>
+								<legend id = "prod-form-tittle" class="bg-dark text-white text-center">Añadir producto</legend>
 								<!-- Aquí los inputs y botones del form -->
 								<div class="form-group">
 									<label for="newprod-id">ID:</label>
@@ -92,7 +92,7 @@
 								</div>
 								<div class="form-group">
 									<label for="newprod-price">Precio/u.:</label>
-									<input type="text" inputmode="numeric" id="newprod-price" class="form-control" required>
+									<input type="text" inputmode="numeric" id="newprod-price" class="form-control" min="0" required>
 								</div>
 								<br>
 								<button type="submit" class="btn btn-default btn-dark" id="quest-prod-button">Añadir</button>
