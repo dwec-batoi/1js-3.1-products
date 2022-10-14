@@ -15,6 +15,14 @@ class View {
         editButtonUI.id = productUI.id + "-edit";
         editButtonUI.innerHTML = "<span class='material-icons'>edit</span>";
 
+        const upButtonUI = document.createElement('button');
+        upButtonUI.id = productUI.id + "-up";
+        upButtonUI.innerHTML = "<span class='material-icons'>expand_less</span>";
+
+        const downButtonUI = document.createElement('button');
+        downButtonUI.id = productUI.id + "-down";
+        downButtonUI.innerHTML = "<span class='material-icons'>expand_more</span>";
+
         productUI.innerHTML = `
         <td>${product.id}</td>
         <td>${product.name}</td>
@@ -29,8 +37,14 @@ class View {
 
         const actionColumnUI = productUI.lastElementChild;
         
+        actionColumnUI.appendChild(upButtonUI);
+        actionColumnUI.appendChild(downButtonUI);
         actionColumnUI.appendChild(editButtonUI);
         actionColumnUI.appendChild(deleteButtonUI);
+
+        if(product.units <= 0) {
+            downButtonUI.disabled = true;
+        }
     }
 
     renderMessage(err) {
@@ -92,6 +106,28 @@ class View {
         document.getElementById('newprod-units').value = "";
         document.getElementById('quest-prod-button').innerHTML = "Añadir";
         document.getElementById('prod-form-tittle').innerHTML = "Añadir producto";
+
+    }
+
+    editProductInStore (product) {
+
+        let productValueUI = document.getElementById(product.id + "-id-prod").firstElementChild;  
+       
+        productValueUI.innerHTML = product.id;
+        productValueUI = productValueUI.nextElementSibling;
+        productValueUI.innerHTML = product.name;
+        productValueUI = productValueUI.nextElementSibling;
+        productValueUI.innerHTML = product.category;
+        productValueUI = productValueUI.nextElementSibling;
+        productValueUI.innerHTML = product.units;
+        productValueUI = productValueUI.nextElementSibling;
+        productValueUI.innerHTML = product.price;
+        productValueUI = productValueUI.nextElementSibling;
+        productValueUI.innerHTML = Number(product.productImport()).toFixed(2);
+
+        if(product.units <= 0) {
+            document.getElementById(product.id + "-id-prod-down").disabled = true;
+        }
 
     }
 

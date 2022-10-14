@@ -144,6 +144,23 @@ class Store {
 
     editProduct (object) {
         
+        if(!object.name) {
+            throw "Debes pasar un atributo name";
+        }
+
+        if(!object.category) {
+            throw "Category vacia o no existe en el almacen";
+        }
+
+        if(!object.price || object.price < 0 || isNaN(object.price)) {
+            throw "Debes añadir un precio válido";
+        }
+        if(object.units) {
+            if(object.units < 0 || !Number.isInteger(Number(object.units))) {
+                throw "El atributo units debe ser un número entero positivo";
+            } 
+        }
+        
         let product = this.getProductById(object.id);
         product.name = object.name;
         product.price = object.price;

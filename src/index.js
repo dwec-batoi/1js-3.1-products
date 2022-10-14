@@ -23,8 +23,14 @@ window.addEventListener('load', () => {
     
     // Aquí llamamos a la función del controlador que añade productos (addProductToStore)
     // pasándole como parámetro esos datos
-    myController.addProductToStore({ id, name, price, category, units })   
-    // Sintaxis de ES2015 que equivale a 
+    if(id) {
+      myController.editProductFromStore({ id, name, price, category, units })
+
+    } else {
+      myController.addProductToStore({ name, price, category, units })   
+
+    }
+    // Sintaxis de ES2015 quoe equivale a 
     //
     // myController.addProductToStore(
     //   { 

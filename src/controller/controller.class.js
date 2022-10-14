@@ -20,43 +20,22 @@ class Controller {
         this.view.setTotalImport(this.store.totalImport());
 
 
-        this.store.products.forEach(product => () => {
-            this.addListenerToEditButom(product.id);
-            this.addListenerToDeleteButom(product.id);
+        this.store.products.forEach(product =>  {
+            this.addListeners(product.id);
         });
-        /*
-        const ButomsUI = document.getElementsByClassName('action-prod-buton');
-        Array.from(ButomsUI).forEach(button => button.lastElementChild.addEventListener('click', ()=> {
-            const id = button.firstElementChild.id.split("-")[0];
-            this.deleteProductFromStore(id);
-        }))
-
-        Array.from(ButomsUI).forEach(button => button.firstElementChild.addEventListener('click', ()=> {
-            const id = button.lastElementChild.id.split("-")[0];
-            this.editProductFromStore(id);
-        }))
-        */
-
-
+    
     }
 
-    addProductToStore(payload) {
+    addProductToStore (payload) {
 
         try {
             let newProd;
-            if(payload.id) {
-                newProd = this.store.editProduct(payload);
-                this.view.removeProductFromTable(newProd);
-                this.view.cleanProductTable();
-            } else {
-                newProd = this.store.addProduct(payload);
-            }
-            this.view.renderProduct(newProd);
            
+            newProd = this.store.addProduct(payload);
             
-            this.addListenerToDeleteButom(newProd.id);
-            this.addListenerToEditButom (newProd.id);
+            this.view.renderProduct(newProd);
             
+            this.addListeners(newProd.id);
            
             this.view.setTotalImport(this.store.totalImport());
         } catch (err) {
@@ -66,18 +45,28 @@ class Controller {
         
     }
 
-    addListenerToDeleteButom (id) {
-        const delButton = document.getElementById(id + "-id-prod-del"); 
-        delButton.addEventListener('click', ()=> {
-            this.deleteProductFromStore(id);
-        });
+    editProductFromStore (payload) {
+        let product = this.store.editProduct(payload);
+        this.view.editProductInStore(product);
+        this.view.setTotalImport(this.store.totalImport());
+        this.view.cleanProductTable();
+
     }
 
-    addListenerToEditButom (id) {
-        const editButton = document.getElementById(id + "-id-prod-edit"); 
-        editButton.addEventListener('click', ()=> {
-            this.editProductFromStore(id);
-        });
+    upUnitsProductFromStore (id) {
+        let product = this.store.getProductById(id);
+        product.units++;
+        this.view.editProductInStore(product);
+        this.view.setTotalImport(this.store.totalImport());
+    }
+
+    downUnitsProductFromStore (id) {
+        let product = this.store.getProductById(id);
+        if(product.units > 0) {
+            product.units--;
+        }
+        this.view.editProductInStore(product);
+        this.view.setTotalImport(this.store.totalImport());
     }
 
     addCategoryToStore(payload) {
@@ -113,11 +102,46 @@ class Controller {
 
     }
 
-    editProductFromStore(id) {
+    editProductByForm(id) {
 
         const product = this.store.getProductById(id);
         this.view.fillProductTable(product);
 
+    }
+
+    addListeners (id) {
+        this.addListenerToDeleteButom(id);
+        this.addListenerToEditButom (id); 
+        this.addListenerToUpButom (id);
+        this.addListenerToDownButom (id); 
+    }
+
+    addListenerToDeleteButom (id) {
+        const delButton = document.getElementById(id + "-id-prod-del"); 
+        delButton.addEventListener('click', ()=> {
+            this.deleteProductFromStore(id);
+        });
+    }
+
+    addListenerToEditButom (id) {
+        const editButton = document.getElementById(id + "-id-prod-edit"); 
+        editButton.addEventListener('click', ()=> {
+            this.editProductByForm(id);
+        });
+    }
+
+    addListenerToUpButom (id) {
+        const upButton = document.getElementById(id + "-id-prod-up"); 
+        upButton.addEventListener('click', ()=> {
+            this.upUnitsProductFromStore(id);
+        });
+    }
+
+    addListenerToDownButom (id) {
+        const downButton = document.getElementById(id + "-id-prod-down"); 
+        downButton.addEventListener('click', ()=> {
+            this.downUnitsProductFromStore(id);
+        });
     }
 
 }
