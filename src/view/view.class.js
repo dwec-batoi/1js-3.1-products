@@ -42,8 +42,10 @@ class View {
         actionColumnUI.appendChild(editButtonUI);
         actionColumnUI.appendChild(deleteButtonUI);
 
-        if(product.units <= 0) {
+        if(product.units < 1) {
             downButtonUI.disabled = true;
+        } else {
+            downButtonUI.disabled = false;
         }
     }
 
@@ -109,6 +111,24 @@ class View {
 
     }
 
+    ocultarTodo () {
+
+        document.getElementById("almacen").hidden = true;
+        document.getElementById("categorias-table").hidden = true;
+        document.getElementById("new-prod").hidden = true;
+        document.getElementById("newcat").hidden = true;
+        document.getElementById("del-cat").hidden = true;
+        document.getElementById("about").hidden = true;
+
+    }
+
+    mostrarVista (id) {
+
+        this.ocultarTodo();
+        document.getElementById(id).hidden = false;
+
+    }
+
     editProductInStore (product) {
 
         let productValueUI = document.getElementById(product.id + "-id-prod").firstElementChild;  
@@ -121,12 +141,14 @@ class View {
         productValueUI = productValueUI.nextElementSibling;
         productValueUI.innerHTML = product.units;
         productValueUI = productValueUI.nextElementSibling;
-        productValueUI.innerHTML = product.price;
+        productValueUI.innerHTML = product.price + " €/u";
         productValueUI = productValueUI.nextElementSibling;
-        productValueUI.innerHTML = Number(product.productImport()).toFixed(2);
+        productValueUI.innerHTML = Number(product.productImport()).toFixed(2) + " €";
 
-        if(product.units <= 0) {
+        if(product.units < 1) {
             document.getElementById(product.id + "-id-prod-down").disabled = true;
+        } else {
+            document.getElementById(product.id + "-id-prod-down").disabled = false;
         }
 
     }

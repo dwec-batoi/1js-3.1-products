@@ -23,7 +23,31 @@ class Controller {
         this.store.products.forEach(product =>  {
             this.addListeners(product.id);
         });
+        this.addListenetToNav();
+        this.view.mostrarVista("almacen");
     
+    }
+
+    addListenetToNav () {
+
+        let productNav = document.getElementById("almacen-nav");
+        productNav.addEventListener('click', ()=> {this.view.mostrarVista("almacen")});
+        
+        let categoriasNav = document.getElementById("categorias-table-nav");
+        categoriasNav.addEventListener('click', ()=> {this.view.mostrarVista("categorias-table")});
+        
+        let anyadirProductoNav = document.getElementById("new-prod-nav");
+        anyadirProductoNav.addEventListener('click', ()=> {
+            this.view.cleanProductTable();
+            this.view.mostrarVista("new-prod");
+        });
+        
+        let anyadirCategoriaNav = document.getElementById("newcat-nav");
+        anyadirCategoriaNav.addEventListener('click', ()=> {this.view.mostrarVista("newcat")});
+        
+        let aboutNav = document.getElementById("about-nav");
+        aboutNav.addEventListener('click', ()=> {this.view.mostrarVista("about")});
+
     }
 
     addProductToStore (payload) {
@@ -36,6 +60,8 @@ class Controller {
             this.view.renderProduct(newProd);
             
             this.addListeners(newProd.id);
+
+            this.view.mostrarVista("almacen");
            
             this.view.setTotalImport(this.store.totalImport());
         } catch (err) {
@@ -46,6 +72,7 @@ class Controller {
     }
 
     editProductFromStore (payload) {
+
         let product = this.store.editProduct(payload);
         this.view.editProductInStore(product);
         this.view.setTotalImport(this.store.totalImport());
@@ -74,6 +101,7 @@ class Controller {
         try {
             const newCat = this.store.addCategory(payload.name, payload.description);
             this.view.setCategoryList(newCat);
+            this.view.mostrarVista("categorias-table");
         } catch (err) {
             this.view.renderMessage(err);
         }
@@ -104,6 +132,7 @@ class Controller {
 
     editProductByForm(id) {
 
+        this.view.mostrarVista("new-prod");
         const product = this.store.getProductById(id);
         this.view.fillProductTable(product);
 

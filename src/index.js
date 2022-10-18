@@ -61,11 +61,13 @@ window.addEventListener('load', () => {
     // ) 
   })
 
+  /*
   document.getElementById('del-prod').addEventListener('submit', (event) => {
     event.preventDefault()
 
     myController.deleteProductFromStore(document.getElementById('delprod-id').value)      
   })
+  */
 
   document.getElementById('del-cat').addEventListener('submit', (event) => {
     event.preventDefault()
