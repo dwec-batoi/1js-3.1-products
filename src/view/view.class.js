@@ -113,19 +113,19 @@ class View {
 
     ocultarTodo () {
 
-        document.getElementById("almacen").hidden = true;
-        document.getElementById("categorias-table").hidden = true;
-        document.getElementById("new-prod").hidden = true;
-        document.getElementById("newcat").hidden = true;
-        document.getElementById("del-cat").hidden = true;
-        document.getElementById("about").hidden = true;
+        document.getElementById("almacen").classList.add("oculto");
+        document.getElementById("categorias-table").classList.add("oculto");
+        document.getElementById("new-prod").classList.add("oculto");
+        document.getElementById("newcat").classList.add("oculto");
+        document.getElementById("del-cat").classList.add("oculto");
+        document.getElementById("about").classList.add("oculto");
 
     }
 
     mostrarVista (id) {
 
         this.ocultarTodo();
-        document.getElementById(id).hidden = false;
+        document.getElementById(id).classList.remove("oculto");
 
     }
 
