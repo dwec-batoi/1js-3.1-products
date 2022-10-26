@@ -192,6 +192,11 @@ class Store {
       
     }
 
+    productNameExist (name) {
+    
+        return this.products.some(product => product.getName() === name);
+    }
+
     toString() {
         let cabecera = 'Almacén ' + this.id + ' => ' + this.products.length +
         ' productos: ' + this.totalImport.toFixed(2) + ' €\n';

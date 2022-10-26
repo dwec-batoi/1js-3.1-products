@@ -27,12 +27,10 @@
 		</div>
 	  </nav>
 
-	  <div class="container">
-      
+	  <div class="container">      
 
         <!-- Zona para mostrar mensajes al usuario -->
-        <div class="row" id="messages">
-			  
+        <div class="row" id="messages">			  
 		</div>
 
         <!-- Almacén de productos -->
@@ -91,36 +89,40 @@
             </div>
         </div>
 
-
 		        <!-- Acciones sobre el almacén -->
 				<div class="row">
 					<div class="col-sm-6 col-md-4 col-lg-4">
-						<form id="new-prod">
+						<form id="new-prod" novalidate>
 							<fieldset>
 								<legend id = "prod-form-tittle" class="bg-dark text-white text-center">Añadir producto</legend>
 								<!-- Aquí los inputs y botones del form -->
 								<div class="form-group">
 									<label for="newprod-id">ID:</label>
 									<input type="text" class="form-control" id="newprod-id" disabled>
+									<spam class="error"></spam>
 								</div>
 								<div class="form-group">
 									<label for="newprod-name">Nombre:</label>
-									<input type="text" id="newprod-name" class="form-control" required>
+									<input type="text" id="newprod-name" class="form-control" maxlength="50" minlength="5" required>
+									<spam class="error"></spam>
 								</div>
 								<div class="form-group">
 									<label for="newprod-cat">Categoría:</label>
-									<select class="form-control" required id="newprod-cat">
+									<select class="form-control" id="newprod-cat" required>
 										<option value="">--- Selecciona categoría ---</option>
-										</select>
+									</select>
+									<spam class="error"></spam>
 								</div>
 
 								<div class="form-group">
 									<label for="newprod-units">Unidades.:</label>
-									<input type="text" inputmode="numeric" id="newprod-units" class="form-control" pattern="\d*">
+									<input type="number" id="newprod-units" class="form-control" min="0" max="100" >
+									<spam class="error"></spam>
 								</div>
 								<div class="form-group">
 									<label for="newprod-price">Precio/u.:</label>
-									<input type="text" inputmode="numeric" id="newprod-price" class="form-control" min="0" required>
+									<input type="text" inputmode="numeric" id="newprod-price" class="form-control" min="0" pattern="([0-9]{1,10}(\.[0-9]{1,2})?)" placeholder="Ej: 3.33" required>
+									<spam class="error"></spam>
 								</div>
 								<br>
 								<button type="submit" class="btn btn-default btn-dark" id="quest-prod-button">Añadir</button>
@@ -136,6 +138,7 @@
 								<div class="form-group">
 									<label for="newcat-id">ID:</label>
 									<input type="text" class="form-control" disabled>
+									<p></p>
 								</div>
 								<div class="form-group">
 									<label for="newcat-name">Nombre:</label>

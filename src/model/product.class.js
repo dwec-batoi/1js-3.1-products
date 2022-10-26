@@ -10,6 +10,10 @@ class Product {
         
     }
 
+    getName () {
+        return this.name;
+    }
+
     productImport() {
         return this.price * this.units;
     }
