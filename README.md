@@ -117,6 +117,8 @@ Almacén 1 => 2 productos: 2174,75 €
 Recuerda que siempre que llames a una función que pueda generar un error debes hacer dicha llamada dentro de una sentencia `try...catch`. Lo que hace _index.js_ si captura un error es mostrarlo por consola con el comando `console.error`.
 
 ## Organizar el código: webpack
+**NOTA**: en este apartado explica cómo hacer la práctica usando _webpack_, pero como ya hemos usado _Vite_ en otras prácticas podéis hacerla usando _vite_ y saltaros este apartado.
+
 Lo correcto es no tener todo el código en un único fichero javascript sino cada cosa en su fichero correspondiente. Así que dentro de la carpeta **src/** crearemos los ficheros:
 - **product.class.js**: la clase _Product_ con sus propiedades y métodos
 - **store.class.js**: la clase _Store_ con sus propiedades y métodos
