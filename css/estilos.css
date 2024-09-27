@@ -1,0 +1,11 @@
+.oculto {
+    display: none;
+}
+
+.error {
+    color: red;
+}
+
+input:invalid {
+    border: 2px dashed red;
+}
