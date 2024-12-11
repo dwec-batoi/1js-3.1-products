@@ -1,4 +1,4 @@
-const Store = require('../src/store.class');
+const Store = require('../src/model/store.class');
 
 describe('Constructor', () => {
 	test('Existe la clase Store', () => {

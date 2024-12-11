@@ -1,4 +1,4 @@
-const Category = require('../src/category.class');
+const Category = require('../src/model/category.class');
 
 describe('constructor', () => {
 	test('Existe la clase Category', () => {

@@ -1,0 +1,14 @@
+{
+    "categories": [
+        {
+            "id":1,
+            "name":"Mobiliario",
+            "description":"Muebles de oficina"
+        }
+    ],
+    "products": [
+        {"id":2,"name":"Silla de ordenador","category":1,"price":145.95,"units":4},
+        {"id":3,"name":"Mesa de impresora","category":1,"price":45.95,"units":0},
+        {"id":1,"name":"Mesa de ordenador","category":1,"price":125.95,"units":3}
+    ]
+}
