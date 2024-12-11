@@ -5,12 +5,16 @@
 const Store = require('./store.class');
 const myStore = new Store(1, 'Almacén de ACME')
 
+myStore.loadData();
+
 // Añadimos los objetos
 try {
     var catInformatica = myStore.addCategory('Informática')
 } catch(err) {
     console.error(err)
 }
+
+
 
 try {
     var tv = myStore.addProduct({ 
@@ -55,3 +59,5 @@ myStore.orderByName().forEach(prod=>console.log('- '+prod))
 
 console.log('LISTADO DE PRODUCTOS CON POCAS EXISTENCIAS')
 myStore.underStock(10).forEach(prod=>console.log('- '+prod))
+console.log(myStore.categories);
+console.log(myStore.products);
